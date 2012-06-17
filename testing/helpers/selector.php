@@ -9,7 +9,12 @@
  */
  
 error_reporting(E_ALL);
-$ini = parse_ini_file("../config/test.ini", true);
+
+//Load configuration file
+if (file_exists('../config/test.ini')) $ini = parse_ini_file("../config/test.ini", true);
+elseif (file_exists('../config/test-travis.ini')) $ini = parse_ini_file("../config/test-travis.ini", true);
+else die('Cant find configuration file.');
+
 global $a;
 global $pdo;
 
@@ -23,7 +28,6 @@ require_once('../RedUNIT/Blackhole.php');
 require_once('../RedUNIT/Mysql.php');
 require_once('../RedUNIT/Postgres.php');
 require_once('../RedUNIT/Sqlite.php');
-require_once('../RedUNIT/Oracle.php');
 
 
 //Configure the databases
@@ -106,6 +110,7 @@ $allPacks = array(
 		'Base/Count',
 		'Base/Chill',
 		'Base/Misc',
+		'Oracle/Base',
 		'Mysql/Preexist',
 		'Mysql/Double',
 		'Mysql/Writer',
@@ -114,7 +119,6 @@ $allPacks = array(
 		'Mysql/Mix',
 		'Mysql/Foreignkeys',
 		'Mysql/Parambind',
-	    'Oracle/Base',
 		'Postgres/Setget',
 		'Postgres/Foreignkeys',
 		'Postgres/Parambind',
@@ -162,4 +166,3 @@ foreach($packList as $testPack) {
 		$test->cleanUp();
 	}
 }
-
