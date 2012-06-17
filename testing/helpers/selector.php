@@ -28,6 +28,9 @@ require_once('../RedUNIT/Blackhole.php');
 require_once('../RedUNIT/Mysql.php');
 require_once('../RedUNIT/Postgres.php');
 require_once('../RedUNIT/Sqlite.php');
+require_once('../RedUNIT/Oracle.php');
+
+
 
 
 //Configure the databases
