@@ -80,7 +80,7 @@ class RedBean_Facade {
 	 * @return string
 	 */
 	public static function getVersion() {
-		return '3.4.4';
+		return '3.4.5';
 	}
 	/**
 	 * Kickstarts redbean for you. This method should be called before you start using
