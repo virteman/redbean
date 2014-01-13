@@ -473,9 +473,6 @@ class RedUNIT_Blackhole_Misc extends RedUNIT_Blackhole
 			asrt( $e->getMessage(), 'Could not connect to database (?).' );
 		}
 
-		R::setup( 'blackhole:dbname=mydatabase;password=dontshowthisone' );
-
-		pass();
 
 		asrt( isset( R::$toolboxes['default'] ), TRUE );
 		try {
