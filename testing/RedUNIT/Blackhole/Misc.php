@@ -451,43 +451,7 @@ class RedUNIT_Blackhole_Misc extends RedUNIT_Blackhole
 		asrt( $band->property3, 123 );
 		asrt( $band->property4, 345 );
 
-		testpack( 'Test blackhole DSN and setup()' );
 
-		R::setup( 'blackhole:database' );
-
-		pass();
-
-		asrt( isset( R::$toolboxes['default'] ), TRUE );
-
-		try {
-			( R::$toolboxes['default']->getDatabaseAdapter()->getDatabase()->connect() );
-
-			fail();
-		} catch ( PDOException $e ) {
-			pass();
-
-			/**
-			 * Make sure the message is non-descriptive - avoid revealing
-			 * security details if user hasn't configured error reporting improperly.
-			 */
-			asrt( $e->getMessage(), 'Could not connect to database (?).' );
-		}
-
-
-		asrt( isset( R::$toolboxes['default'] ), TRUE );
-		try {
-			( R::$toolboxes['default']->getDatabaseAdapter()->getDatabase()->connect() );
-
-			fail();
-		} catch ( PDOException $e ) {
-			pass();
-
-			/**
-			 * Make sure the message is non-descriptive - avoid revealing
-			 * security details if user hasn't configured error reporting improperly.
-			 */
-			asrt( $e->getMessage(), 'Could not connect to database (mydatabase).' );
-		}
 
 		testpack( 'Can we pass a PDO object to Setup?' );
 
