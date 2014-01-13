@@ -31,7 +31,7 @@ class RedUNIT_Blackhole_Misc extends RedUNIT_Blackhole
 		testpack( 'Test adding DB twice.' );
 
 		try {
-			R::addDatabase( 'default', '' );
+			R::addDatabase( 'sqlite', '' );
 			fail();
 		} catch ( RedBean_Exception_Security $ex ) {
 			pass();
