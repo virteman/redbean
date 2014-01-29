@@ -27,12 +27,6 @@ class RedUNIT_Base_Close extends RedUNIT_Base
 
 		asrt( R::$adapter->getDatabase()->isConnected(), FALSE );
 
-		// Can we create a database using empty setup?
-		R::setup();
-
-		$id = R::store( R::dispense( 'bean' ) );
-
-		asrt( ( $id > 0 ), TRUE );
 
 		// Test freeze via kickstart in setup
 		$toolbox = RedBean_Setup::kickstart( 'sqlite:/tmp/bla.txt', NULL, NULL, TRUE );
