@@ -424,7 +424,7 @@ abstract class RedBean_QueryWriter_AQueryWriter { //bracket must be here - other
 
 		$lsql = ltrim( $sql );
 
-		if ( preg_match( '/^(AND|OR|WHERE|ORDER|GROUP|HAVING|LIMIT|OFFSET)\s+/i', $lsql ) ) {
+		if ( preg_match( '/^(AND|OR|INNER|LEFT|RIGHT|JOIN|WHERE|ORDER|GROUP|HAVING|LIMIT|OFFSET)\s+/i', $lsql ) ) {
 			if ( $glue === RedBean_QueryWriter::C_GLUE_WHERE && stripos( $lsql, 'AND' ) === 0 ) {
 				$snippetCache[$key] = ' WHERE ' . substr( $lsql, 3 );
 			} else {
