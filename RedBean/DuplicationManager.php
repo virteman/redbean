@@ -14,6 +14,8 @@
 class RedBean_DuplicationManager
 {
 
+	protected static $trees = false;
+
 	/**
 	 * @var RedBean_Toolbox
 	 */
@@ -48,6 +50,10 @@ class RedBean_DuplicationManager
 	 * @var array
 	 */
 	protected $cacheTables = FALSE;
+
+	public static function setAllowTrees($allow) {
+		self::$trees = $allow;
+	}
 
 	/**
 	 * Copies the shared beans in a bean, i.e. all the sharedBean-lists.
@@ -196,7 +202,7 @@ class RedBean_DuplicationManager
 
 		$copy = $this->createCopy( $bean );
 		foreach ( $this->tables as $table ) {
-			if ( $table == $type ) continue;
+			if ( !self::$trees && $table == $type ) continue;
 
 			if ( !empty( $this->filters ) ) {
 				if ( !in_array( $table, $this->filters ) ) continue;

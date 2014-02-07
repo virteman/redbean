@@ -13,6 +13,33 @@
  */
 class RedUNIT_Base_Preloading extends RedUNIT_Base
 {
+
+	/**
+	* Test error on loading non-existant parent bean (issue #351)
+	*
+	* @return void 
+	*/
+	public function testIssue351()
+	{
+		R::nuke();
+		$building = R::dispense('building');
+		$building->name = 'the pub';
+		$building->city = null;
+
+		$city = R::dispense('city');
+		$city->name = "Los Angeles";
+
+		$building2 = R::dispense('building');
+		$building2->name = 'courthouse';
+		$building2->city = $city;
+
+		$id1 = R::store($building);
+		$id2 = R::store($building2);
+
+		$loaded = R::load('building', $id1);
+		R::preload(array($loaded), 'city');
+		pass();
+	}
 	
 	/**
 	 * Test whether we can still preload in case we renamed an association.

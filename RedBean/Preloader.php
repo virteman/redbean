@@ -432,12 +432,14 @@ class RedBean_Preloader
 	private function preloadParentBeans( $type, $field, $ids, $map, $sql = NULL, $bindings = array() )
 	{
 		foreach ( $this->oodb->find( $type, array( 'id' => $ids ), $sql, $bindings ) as $parent ) {
-			foreach ( $map[$parent->id] as $childBean ) {
-				$childBean->setProperty( $field, $parent );
+			if (isset($map[$parent->id])) {
+				foreach ( $map[$parent->id] as $childBean ) {
+					$childBean->setProperty( $field, $parent );
 
-				$inputBeanIDs = $childBean->getMeta( 'sys.input-bean-id' );
+					$inputBeanIDs = $childBean->getMeta( 'sys.input-bean-id' );
 
-				$this->fillParamArrayRetrievalsWithParent( $inputBeanIDs, $parent );
+					$this->fillParamArrayRetrievalsWithParent( $inputBeanIDs, $parent );
+				}
 			}
 		}
 	}
