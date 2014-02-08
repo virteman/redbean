@@ -39,6 +39,28 @@ class RedUNIT_Base_Copy extends RedUNIT_Base
 		$duplicate = R::exportAll( $document );
 
 		asrt( (int) $duplicate[0]['document_id'], $id );
+
+		R::nuke();
+		RedBean_DuplicationManager::setAllowTrees( TRUE );
+		
+		$document = R::dispense( 'document' );
+
+		$id = R::store( $document );
+
+		$document->ownDocument[] = $document;
+
+		R::store( $document );
+
+		$duplicate = R::dup( $document );
+
+		$id2 = R::store( $duplicate );
+
+		$duplicate = R::load( 'document', $id );
+
+		asrt( (int) $document->document_id, $id );
+		asrt( (int) $duplicate->document_id, $id2 );
+
+		RedBean_DuplicationManager::setAllowTrees( FALSE );
 	}
 
 	/**
