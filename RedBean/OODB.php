@@ -872,7 +872,7 @@ class RedBean_OODB extends RedBean_Observable
 			}
 			$row = array_pop( $rows );
 		}
-		$bean->setMeta( 'sys.orig', $row )->import( $row );
+		$bean->importRow( $row );
 		$this->nesting++;
 		$this->signal( 'open', $bean );
 		$this->nesting--;

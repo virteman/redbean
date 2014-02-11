@@ -318,6 +318,22 @@ class RedBean_OODBBean implements IteratorAggregate, ArrayAccess, Countable
 	}
 
 	/**
+	* Fast way to import a database row, does not perform any checks but still
+	* sets original values in meta properties (also the fast way).
+	*
+	* @param array $row a database row
+	*
+	* @return self
+	*/
+	public function importRow( $row )
+	{
+		$this->properties         = $row;
+		$this->__info['sys.orig'] = $row;
+		return $this;
+	}
+
+
+	/**
 	 * Imports data from another bean. Chainable.
 	 * Copies the properties from the source bean to the internal
 	 * property list.
