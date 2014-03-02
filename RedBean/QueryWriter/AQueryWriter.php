@@ -674,7 +674,7 @@ abstract class RedBean_QueryWriter_AQueryWriter { //bracket must be here - other
 		$table  = $this->esc( $type );
 
 		$sql    = $this->makeSQLFromConditions( $conditions, $bindings, $addSql );
-		$sql    = "SELECT COUNT(*) FROM {$table} {$sql} -- keep-cache";
+		$sql    = "SELECT COUNT(*) FROM {$table} {$sql}";
 
 		return (int) $this->adapter->getCell( $sql, $bindings );
 	}
@@ -692,8 +692,7 @@ abstract class RedBean_QueryWriter_AQueryWriter { //bracket must be here - other
 			INNER JOIN {$destTable} ON
 			( {$destTable}.id = {$linkTable}.{$destCol} AND {$linkTable}.{$sourceCol} = ? ) OR
 			( {$destTable}.id = {$linkTable}.{$sourceCol} AND {$linkTable}.{$destCol} = ? )
-			{$addSql}
-			-- keep-cache";
+			{$addSql}";
 
 			$bindings = array_merge( array( $linkID, $linkID ), $bindings );
 		} else {
@@ -701,8 +700,7 @@ abstract class RedBean_QueryWriter_AQueryWriter { //bracket must be here - other
 			SELECT COUNT(*) FROM {$linkTable}
 			INNER JOIN {$destTable} ON
 			( {$destTable}.id = {$linkTable}.{$destCol} AND {$linkTable}.{$sourceCol} = ? )
-			{$addSql}
-			-- keep-cache";
+			{$addSql}";
 
 			$bindings = array_merge( array( $linkID ), $bindings );
 		}
