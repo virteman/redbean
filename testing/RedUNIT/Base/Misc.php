@@ -460,7 +460,7 @@ class RedUNIT_Base_Misc extends RedUNIT_Base
 
 		$b = strval( $a );
 
-		asrt( $b, '[test] - ' );
+		asrt( strpos( $b, '[test] - ' ), 0 );
 	}
 
 	/**

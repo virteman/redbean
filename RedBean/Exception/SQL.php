@@ -49,6 +49,7 @@ class RedBean_Exception_SQL extends RuntimeException
 	 */
 	public function __toString()
 	{
-		return '[' . $this->getSQLState() . '] - ' . $this->getMessage();
+		return '[' . $this->getSQLState() . '] - ' . $this->getMessage().PHP_EOL.
+    			'trace: ' . $this->getTraceAsString();
 	}
 }
