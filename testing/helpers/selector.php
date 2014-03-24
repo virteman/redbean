@@ -115,6 +115,7 @@ $allPacks = array(
 	'Base/Dup',
 	'Base/Update',
 	'Base/Utf8',
+	'Base/Bean',
 	'Base/Batch',
 	'Base/Writecache',
 	'Base/Relations',
