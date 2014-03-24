@@ -355,17 +355,11 @@ class RedBean_OODB extends RedBean_Observable
 	 */
 	private function processTrashcan( $bean, $ownTrashcan )
 	{
-		$myFieldLink = $bean->getMeta( 'type' ) . '_id';
-		if ( is_array( $ownTrashcan ) && count( $ownTrashcan ) > 0 ) {
-			$first = reset( $ownTrashcan );
-			if ( $first instanceof RedBean_OODBBean ) {
-				$alias = $bean->getMeta( 'sys.alias.' . $first->getMeta( 'type' ) );
-				if ( $alias ) {
-					$myFieldLink = $alias . '_id';
-				}
-			}
-		}
 		foreach ( $ownTrashcan as $trash ) {
+			$myFieldLink = $bean->getMeta( 'type' ) . '_id';
+			$alias = $bean->getMeta( 'sys.alias.' . $trash->getMeta( 'type' ) );
+			if ( $alias ) $myFieldLink = $alias . '_id';
+
 			if ( isset( $this->dep[$trash->getMeta( 'type' )] ) && in_array( $bean->getMeta( 'type' ), $this->dep[$trash->getMeta( 'type' )] ) ) {
 				$this->trash( $trash );
 			} else {
@@ -442,18 +436,21 @@ class RedBean_OODB extends RedBean_Observable
 	 */
 	private function processAdditions( $bean, $ownAdditions )
 	{
-		$myFieldLink = $bean->getMeta( 'type' ) . '_id';
-		if ( $bean && count( $ownAdditions ) > 0 ) {
-			$first = reset( $ownAdditions );
-			if ( $first instanceof RedBean_OODBBean ) {
-				$alias = $bean->getMeta( 'sys.alias.' . $first->getMeta( 'type' ) );
+		$beanType = $bean->getMeta( 'type' );
+		
+		$cachedIndex = array();
+		foreach ( $ownAdditions as $addition ) {
+			if ( $addition instanceof RedBean_OODBBean ) {
+				
+				$alias = $bean->getMeta( 'sys.alias.' . $addition->getMeta( 'type' ) );
 				if ( $alias ) {
 					$myFieldLink = $alias . '_id';
 				}
-			}
-		}
-		foreach ( $ownAdditions as $addition ) {
-			if ( $addition instanceof RedBean_OODBBean ) {
+	
+				$myFieldLink = $beanType . '_id';
+				$alias = $bean->getMeta( 'sys.alias.' . $addition->getMeta( 'type' ) );
+				if ( $alias ) $myFieldLink = $alias . '_id';
+		
 				$addition->$myFieldLink = $bean->id;
 				$addition->setMeta( 'cast.' . $myFieldLink, 'id' );
 				$this->store( $addition );
